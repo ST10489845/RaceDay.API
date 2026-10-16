@@ -73,5 +73,5 @@ Authentication is **session-based** with **BCrypt password hashing** and **role-
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/STM10489845/RaceDay.API.git
+git clone https://github.com
 
