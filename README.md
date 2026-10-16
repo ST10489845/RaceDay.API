@@ -71,7 +71,4 @@ Authentication is **session-based** with **BCrypt password hashing** and **role-
 - SQL Server (LocalDB is fine) or SQL Server Express
 - Visual Studio 2022 or VS Code (with the C# extension)
 
-### 1. Clone the Repository
-```bash
-git clone https://github.com
-
+<img width="1502" height="433" alt="image" src="https://github.com/user-attachments/assets/c1fe5e9c-9bae-44ec-880a-760637c2284d" />
