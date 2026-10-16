@@ -72,3 +72,6 @@ Authentication is **session-based** with **BCrypt password hashing** and **role-
 - Visual Studio 2022 or VS Code (with the C# extension)
 
 <img width="1502" height="433" alt="image" src="https://github.com/user-attachments/assets/c1fe5e9c-9bae-44ec-880a-760637c2284d" />
+
+
+https://youtu.be/EugYkGNdrt4
