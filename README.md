@@ -62,6 +62,19 @@ Authentication is **session-based** with **BCrypt password hashing** and **role-
 - **Ownership checks** ensure Organisers can only modify their own events, categories, and results.
 - **Participants cannot access Organiser endpoints** and vice versa — enforced by the custom attribute and verified by unit tests.
 
+## 🚀 Setup Instructions
+
+### 1. Start the API
+1. Open the `RaceDay.API` project.
+2. Ensure your `appsettings.json` has the correct SQL connection string.
+3. Run the API (Press **F5**). Note the HTTPS port (e.g., `https://localhost:7119`).
+
+### 2. Configure the MVC App
+1. Open `RaceDay.MVC/Program.cs`.
+2. Ensure the `BaseAddress` matches your API's port:
+   ```csharp
+   client.BaseAddress = new Uri("https://localhost:7119/");
+
 ---
 
 ## 🚀 Setup Instructions
