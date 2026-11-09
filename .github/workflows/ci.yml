@@ -1,0 +1,40 @@
+name: .NET CI
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Display .NET info
+        run: dotnet --info
+
+      - name: Restore dependencies (API)
+        run: dotnet restore RaceDay.API/RaceDay.API.csproj
+
+      - name: Restore dependencies (Tests)
+        run: dotnet restore RaceDay.Tests/RaceDay.Tests.csproj
+
+      - name: Build API
+        run: dotnet build RaceDay.API/RaceDay.API.csproj --no-restore --configuration Release
+
+      - name: Build Tests
+        run: dotnet build RaceDay.Tests/RaceDay.Tests.csproj --no-restore --configuration Release
+
+      - name: Run unit tests
+        run: dotnet test RaceDay.Tests/RaceDay.Tests.csproj --no-build --configuration Release --verbosity normal
