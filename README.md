@@ -96,3 +96,5 @@ Authentication is **session-based** with **BCrypt password hashing** and **role-
 
 
 https://youtu.be/EugYkGNdrt4
+
+https://youtu.be/f_F83fpt-LA
