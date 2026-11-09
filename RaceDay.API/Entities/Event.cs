@@ -16,6 +16,7 @@ namespace RaceDay.API.Entities
         public string EventName { get; set; } = string.Empty;
 
         public string? EventDescription { get; set; }
+        public string? BannerImageUrl { get; set; }
 
         [Required]
         public DateTime EventDate { get; set; }

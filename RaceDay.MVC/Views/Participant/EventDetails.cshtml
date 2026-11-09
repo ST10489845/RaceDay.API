@@ -1,0 +1,58 @@
+﻿@model RaceDay.MVC.ViewModels.EventDetailsViewModel
+@{
+    ViewData["Title"] = Model.EventName;
+}
+
+<div class="container mt-4">
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+    }
+
+    <div class="card shadow mb-4">
+        <div class="card-header bg-primary text-white">
+            <h3>@Model.EventName</h3>
+        </div>
+        <div class="card-body">
+            <p>@Model.EventDescription</p>
+            <hr />
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Date:</strong> @Model.EventDate.ToString("dddd, dd MMMM yyyy")</p>
+                    <p><strong>Venue:</strong> @Model.Venue, @Model.City</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Registration Closes:</strong> @Model.RegistrationDeadline.ToString("dd MMM yyyy HH:mm")</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h4>Available Categories</h4>
+    <div class="row">
+        @foreach (var cat in Model.Categories)
+        {
+            <div class="col-md-4 mb-3">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">@cat.CategoryName</h5>
+                        <p class="mb-1"><strong>Distance:</strong> @cat.DistanceKm km</p>
+                        <p class="mb-3"><strong>Fee:</strong> R @cat.EntryFee</p>
+
+                        <form asp-action="Enrol" method="post">
+                            <input type="hidden" name="eventId" value="@Model.EventId" />
+                            <input type="hidden" name="categoryId" value="@cat.CategoryId" />
+                            <button type="submit" class="btn btn-success w-100" onclick="return confirm('Are you sure you want to enrol in this category?');">Enrol Now</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+        @if (!Model.Categories.Any())
+        {
+            <div class="col-12"><p class="text-muted">No categories have been created for this event yet.</p></div>
+        }
+    </div>
+
+    <a asp-action="Dashboard" class="btn btn-secondary mt-3">Back to Events</a>
+</div>

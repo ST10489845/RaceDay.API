@@ -1,0 +1,56 @@
+﻿@model RaceDay.MVC.ViewModels.OrganiserDashboardViewModel
+@{
+    ViewData["Title"] = "Organiser Dashboard";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Organiser Dashboard</h2>
+        <a asp-action="CreateEvent" class="btn btn-primary">Create New Event</a>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Total Events Created</h5>
+                    <h2>@Model.TotalEvents</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow">
+        <div class="card-header">Your Events</div>
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Event Name</th>
+                        <th>Date</th>
+                        <th>City</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var ev in Model.UpcomingEvents)
+                    {
+                        <tr>
+                            <td class="fw-bold">@ev.EventName</td>
+                            <td>@ev.EventDate.ToString("yyyy-MM-dd")</td>
+                            <td>@ev.City</td>
+                            <td>
+                                <a asp-action="ManageCategories" asp-route-eventId="@ev.EventId" class="btn btn-sm btn-info text-white">Categories</a>
+                                <a asp-action="ViewEnrolments" asp-route-eventId="@ev.EventId" class="btn btn-sm btn-secondary">Enrolments</a>
+                                <a asp-action="EditEvent" asp-route-id="@ev.EventId" class="btn btn-sm btn-warning">Edit</a>
+                                <form asp-action="DeleteEvent" asp-route-id="@ev.EventId" method="post" class="d-inline">
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?');">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

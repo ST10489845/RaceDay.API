@@ -1,0 +1,52 @@
+﻿@model RaceDay.MVC.ViewModels.EventViewModel
+@{
+    ViewData["Title"] = "Create Event";
+}
+<div class="container mt-4">
+    <h2>Create New Event</h2>
+    <div class="card">
+        <div class="card-body">
+            <form asp-action="CreateEvent" method="post" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label asp-for="BannerImage" class="form-label">Event Banner Image</label>
+                    <input asp-for="BannerImage" type="file" class="form-control" accept="image/*" />
+                </div>
+                <div class="mb-3">
+                    <label asp-for="EventName" class="form-label"></label>
+                    <input asp-for="EventName" class="form-control" />
+                    <span asp-validation-for="EventName" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="EventDescription" class="form-label"></label>
+                    <textarea asp-for="EventDescription" class="form-control" rows="3"></textarea>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="EventDate" class="form-label"></label>
+                        <input asp-for="EventDate" type="datetime-local" class="form-control" />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="RegistrationDeadline" class="form-label"></label>
+                        <input asp-for="RegistrationDeadline" type="datetime-local" class="form-control" />
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Venue" class="form-label"></label>
+                    <input asp-for="Venue" class="form-control" />
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="City" class="form-label"></label>
+                        <input asp-for="City" class="form-control" />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Province" class="form-label"></label>
+                        <input asp-for="Province" class="form-control" />
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success">Create Event</button>
+                <a asp-action="Dashboard" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>

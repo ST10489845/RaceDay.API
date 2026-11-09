@@ -1,0 +1,79 @@
+﻿@model List<RaceDay.MVC.ViewModels.CategoryViewModel>
+@{
+    ViewData["Title"] = "Manage Categories";
+}
+
+<div class="container mt-4">
+    <h2>Manage Categories</h2>
+    <a asp-action="Dashboard" class="btn btn-secondary mb-3">Back to Dashboard</a>
+
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-success text-white">Add New Category</div>
+        <div class="card-body">
+            <form asp-action="CreateCategory" method="post" class="row g-3">
+                <input type="hidden" name="EventId" value="@ViewBag.EventId" />
+
+                <div class="col-md-3">
+                    <label class="form-label">Category Name</label>
+                    <input name="CategoryName" class="form-control" required />
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Type</label>
+                    <select name="CategoryType" class="form-select">
+                        <option>Running</option>
+                        <option>Walking</option>
+                        <option>Cycling</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Distance (km)</label>
+                    <input name="DistanceKm" type="number" step="0.1" class="form-control" required />
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Entry Fee (R)</label>
+                    <input name="EntryFee" type="number" step="0.01" class="form-control" required />
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Max P.</label>
+                    <input name="MaxParticipants" type="number" class="form-control" />
+                </div>
+                <div class="col-md-1 d-flex align-items-end">
+                    <button type="submit" class="btn btn-success w-100">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="card shadow">
+        <div class="card-header">Existing Categories</div>
+        <div class="card-body">
+            <table class="table table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Distance</th>
+                        <th>Fee</th>
+                        <th>Max Participants</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var cat in Model)
+                    {
+                        <tr>
+                            <td>@cat.CategoryName</td>
+                            <td>@cat.CategoryType</td>
+                            <td>@cat.DistanceKm km</td>
+                            <td>R @cat.EntryFee</td>
+                            <td>@(cat.MaxParticipants?.ToString() ?? "No Limit")</td>
+                        </tr>
+                    }
+                    @if (!Model.Any())
+                    {
+                        <tr><td colspan="5" class="text-center text-muted">No categories created yet.</td></tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

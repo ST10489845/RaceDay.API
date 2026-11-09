@@ -1,0 +1,56 @@
+﻿@model List<RaceDay.MVC.ViewModels.MyEnrolmentViewModel>
+@{
+    ViewData["Title"] = "My Enrolments";
+}
+
+<div class="container mt-4">
+    <h2>My Enrolments</h2>
+    <a asp-action="Dashboard" class="btn btn-secondary mb-3">Browse More Events</a>
+
+    <div class="card shadow">
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Event</th>
+                        <th>Date</th>
+                        <th>Category</th>
+                        <th>Distance</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="fw-bold">@item.EventName</td>
+                            <td>@item.EventDate.ToString("dd MMM yyyy")</td>
+                            <td>@item.CategoryName</td>
+                            <td>@item.DistanceKm km</td>
+                            <td>
+                                @if (item.Status == "Confirmed")
+                                {
+                                    <span class="badge bg-success">Confirmed</span>
+                                }
+                                else if (item.Status == "Pending")
+                                {
+
+                                    <span class="badge bg-warning text-dark">Pending</span>
+                                }
+                                else
+                                {
+
+                                    <span class="badge bg-secondary">@item.Status</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                    @if (!Model.Any())
+                    {
+                        <tr><td colspan="5" class="text-center text-muted">You haven't enrolled in any events yet.</td></tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

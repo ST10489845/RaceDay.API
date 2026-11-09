@@ -1,0 +1,43 @@
+﻿@model List<RaceDay.MVC.ViewModels.ParticipantResultViewModel>
+@{
+    ViewData["Title"] = "My Results";
+}
+
+<div class="container mt-4">
+    <h2>My Race Results</h2>
+    <p class="text-muted">Your official finish times and rankings.</p>
+
+    <div class="card shadow mt-4">
+        <div class="card-body">
+            <table class="table table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Event</th>
+                        <th>Date</th>
+                        <th>Category</th>
+                        <th>Finish Time</th>
+                        <th>Overall Rank</th>
+                        <th>Category Rank</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="fw-bold">@item.EventName</td>
+                            <td>@item.EventDate.ToString("dd MMM yyyy")</td>
+                            <td>@item.CategoryName (@item.DistanceKm km)</td>
+                            <td class="fw-bold text-success">@item.FinishTime.ToString(@"hh\:mm\:ss")</td>
+                            <td>@(item.OverallRank?.ToString() ?? "-")</td>
+                            <td>@(item.CategoryRank?.ToString() ?? "-")</td>
+                        </tr>
+                    }
+                    @if (!Model.Any())
+                    {
+                        <tr><td colspan="6" class="text-center text-muted py-4">You don't have any race results yet. Complete an event to see your times here!</td></tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

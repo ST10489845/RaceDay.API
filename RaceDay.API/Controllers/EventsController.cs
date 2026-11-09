@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Azure.Storage.Blobs;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RaceDay.API.Auth;
 using RaceDay.API.Data;
@@ -213,6 +215,33 @@ namespace RaceDay.API.Controllers
                 .OrderBy(e => e.EventDate)
                 .ToListAsync();
             return Ok(events);
+        }
+
+        /// <summary>
+        /// Uploads an event banner image to Azure Blob Storage.
+        /// </summary>
+        [HttpPost("upload-image")]
+        [AuthorizeRole("Organiser")]
+        public async Task<IActionResult> UploadImage(IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+                return BadRequest(new { Message = "No file provided." });
+
+            var connectionString = "DefaultEndpointsProtocol=https;AccountName=YOUR_ACCOUNT_NAME;AccountKey=YOUR_KEY;EndpointSuffix=core.windows.net";
+            var containerName = "event-banners";
+
+            var blobServiceClient = new BlobServiceClient(connectionString);
+            var containerClient = blobServiceClient.GetBlobContainerClient(containerName);
+            await containerClient.CreateIfNotExistsAsync();
+
+            var blobClient = containerClient.GetBlobClient(Guid.NewGuid().ToString() + Path.GetExtension(file.FileName));
+
+            using (var stream = file.OpenReadStream())
+            {
+                await blobClient.UploadAsync(stream, true);
+            }
+
+            return Ok(new { Url = blobClient.Uri.ToString() });
         }
     }
 }

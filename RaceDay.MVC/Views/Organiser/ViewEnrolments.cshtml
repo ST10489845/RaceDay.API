@@ -1,0 +1,74 @@
+﻿@model RaceDay.MVC.ViewModels.EventEnrolmentsViewModel
+@{
+    ViewData["Title"] = "Manage Enrolments";
+}
+
+<div class="container mt-4">
+    <h2>Enrolments for @Model.EventName</h2>
+    <a asp-action="Dashboard" class="btn btn-secondary mb-3">Back to Dashboard</a>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+    }
+
+    <div class="card shadow">
+        <div class="card-body">
+            <table class="table table-striped align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Participant</th>
+                        <th>Category</th>
+                        <th>Status</th>
+                        <th>Capture Result</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Enrolments)
+                    {
+                        <tr>
+                            <td class="fw-bold">@item.ParticipantName</td>
+                            <td>@item.CategoryName</td>
+                            <td>
+                                @if (item.Status == "Confirmed")
+                                {
+                                    <span class="badge bg-success">Finished</span>
+                                }
+                                else
+                                {
+
+                                    <span class="badge bg-warning text-dark">@item.Status</span>
+                                }
+                            </td>
+                            <td>
+                                @if (!item.HasResult)
+                                {
+                                    <form asp-action="CaptureResult" method="post" class="d-flex gap-2">
+                                        <input type="hidden" name="eventId" value="@Model.EventId" />
+                                        <input type="hidden" name="enrolmentId" value="@item.EnrolmentId" />
+
+                                        <input type="text" name="finishTime" class="form-control form-control-sm" placeholder="HH:MM:SS" required style="width: 110px;" />
+                                        <input type="number" name="overallRank" class="form-control form-control-sm" placeholder="Rank" style="width: 70px;" />
+                                        <button type="submit" class="btn btn-sm btn-success">Save</button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <span class="text-muted fst-italic">Result captured</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                    @if (Model.Enrolments.Count == 0)
+                    {
+                        <tr><td colspan="4" class="text-center text-muted">No enrolments yet.</td></tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,7 +1,19 @@
-bin/ 
-obj/ 
-.vs/ 
-*.user 
-*.suo 
-TestResults/ 
-*.zip 
+# Build outputs
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Visual Studio / IDE files
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+
+# Test results
+[Tt]est[Rr]esult*/
+*.trx
+
+# Docker
+docker-compose.override.yml
