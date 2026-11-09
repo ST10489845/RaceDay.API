@@ -75,6 +75,8 @@ Authentication is **session-based** with **BCrypt password hashing** and **role-
 <img width="1920" height="1080" alt="Screenshot 2026-11-09 233830" src="https://github.com/user-attachments/assets/b86bc029-0b75-4fbe-9994-3bc511dccc78" />
 <img width="1920" height="1080" alt="Screenshot 2026-11-09 233924" src="https://github.com/user-attachments/assets/ddc4f033-6511-41ca-bba0-ee032b20ce0c" />
 <img width="1920" height="1080" alt="Screenshot 2026-11-09 234010" src="https://github.com/user-attachments/assets/c0088fe3-d3b1-4800-ac01-62231256f3ea" />
+<img width="1502" height="405" alt="image" src="https://github.com/user-attachments/assets/30ce575a-5e45-4041-b92f-bc14fdc2928d" />
+
 
 
 
